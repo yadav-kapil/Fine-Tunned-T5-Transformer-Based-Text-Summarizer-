@@ -29,7 +29,7 @@
     <main class="workspace-grid">
       <section class="card animate-in delay-1" aria-labelledby="input-heading">
         <div class="card-header">
-          <h2 id="input-heading">Input Dialogue</h2>
+          <h2 id="input-heading">Conversation Dialogue</h2>
           <button type="button" class="btn-ghost" id="clear-btn">Clear</button>
         </div>
 
@@ -38,7 +38,7 @@
           <textarea 
             id="dialogue" 
             name="dialogue" 
-            placeholder="Paste your dialogue or conversation here..." 
+            placeholder="Paste your dialogue or multi-turn conversation here..." 
             spellcheck="false"
             required
           ></textarea>
@@ -46,7 +46,7 @@
           <div class="card-footer">
             <span class="char-count" id="char-counter" aria-live="polite">0 characters</span>
             <button type="submit" id="summarize-btn" class="btn-primary">
-              <span class="btn-label">Summarize Dialogue</span>
+              <span class="btn-label">Generate Summary</span>
               <span class="spinner" aria-hidden="true"></span>
             </button>
           </div>
@@ -54,7 +54,7 @@
       </section>
       <section class="card animate-in delay-2" aria-labelledby="summary-heading">
         <div class="card-header">
-          <h2 id="summary-heading">T5 Generated Summary</h2>
+          <h2 id="summary-heading">Summary</h2>
           <button type="button" class="btn-outline" id="copy-btn" title="Copy to clipboard" aria-label="Copy summary to clipboard" disabled>
             <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -66,7 +66,7 @@
 
         <div class="card-body" id="summary-container" aria-live="polite">
           <div class="empty-state" id="placeholder-text">
-            <p>Fine-tuned T5 model summary will appear here.</p>
+            <p>Your generated summary will appear here.</p>
           </div>
         </div>
       </section>

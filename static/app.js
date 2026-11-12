@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       summaryContainer.innerHTML = `
         <div class="empty-state" id="placeholder-text">
-          <p>Generated summary will appear here.</p>
+          <p>Your generated summary will appear here.</p>
         </div>
       `;
 
