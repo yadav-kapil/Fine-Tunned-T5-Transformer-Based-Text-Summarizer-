@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dialogue Summarizer</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <header class="navbar animate-in">
+      <div class="nav-brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h1 class="brand-title">Dialogue Summarizer</h1>
+      </div>
+    </header>
+    <main class="workspace-grid">
+      <section class="card animate-in delay-1" aria-labelledby="input-heading">
+        <div class="card-header">
+          <h2 id="input-heading">Input Dialogue</h2>
+          <button type="button" class="btn-ghost" id="clear-btn">Clear</button>
+        </div>
+
+        <form id="summarize-form" action="/summarize" method="POST" class="card-form">
+          <label for="dialogue" class="visually-hidden">Dialogue text input</label>
+          <textarea 
+            id="dialogue" 
+            name="dialogue" 
+            placeholder="Paste your dialogue or conversation here..." 
+            spellcheck="false"
+            required
+          ></textarea>
+
+          <div class="card-footer">
+            <span class="char-count" id="char-counter" aria-live="polite">0 characters</span>
+            <button type="submit" id="summarize-btn" class="btn-primary">
+              <span class="btn-label">Summarize</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+      </section>
+      <section class="card animate-in delay-2" aria-labelledby="summary-heading">
+        <div class="card-header">
+          <h2 id="summary-heading">Summary</h2>
+          <button type="button" class="btn-outline" id="copy-btn" title="Copy to clipboard" aria-label="Copy summary to clipboard" disabled>
+            <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+
+        <div class="card-body" id="summary-container" aria-live="polite">
+          <div class="empty-state" id="placeholder-text">
+            <p>Generated summary will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../static/app.js"></script>
+</body>
+</html>
