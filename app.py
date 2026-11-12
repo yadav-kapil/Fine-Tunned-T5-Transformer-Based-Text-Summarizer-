@@ -3,7 +3,6 @@ import re
 import sys
 from pathlib import Path
 
-# Defensive guard: prevent broken torchvision binaries from breaking pure-NLP transformers
 try:
     import torchvision  # noqa: F401
 except Exception:
@@ -21,7 +20,10 @@ STATIC_DIR = BASE_DIR / "static"
 TEMPLATES_DIR = BASE_DIR / "templates"
 MODELS_DIR = BASE_DIR / "models"
 
-app = FastAPI(title="Dialogue Summarizer API")
+app = FastAPI(
+    title="Fine-Tuned T5 Transformer Summarizer API",
+    description="Production API serving a fine-tuned T5-small seq2seq model for dialogue summarization"
+)
 
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
@@ -95,6 +97,5 @@ async def summarize(request: Request):
 
 if __name__ == "__main__":
     import uvicorn
-    # Defaults to 7860 (Hugging Face Spaces default), or uses cloud $PORT (e.g. Render)
     port = int(os.environ.get("PORT", 7860))
     uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)

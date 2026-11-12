@@ -1,4 +1,4 @@
-# Dialogue Summarizer
+# Fine-Tuned T5 Transformer Dialogue Summarizer
 
 A learning project to understand **Transformer fine-tuning** end-to-end — from raw dataset preprocessing and sequence-to-sequence training, to saving a model and wrapping it in a FastAPI web application.
 

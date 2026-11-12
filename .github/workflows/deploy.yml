@@ -1,0 +1,61 @@
+name: Deploy Fine-Tuned T5 Summarizer to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Pull Git LFS Weights
+        run: |
+          echo "Pulling Git LFS model weights..."
+          git lfs pull
+
+      - name: Build Docker Image
+        run: |
+          echo "Building Docker image..."
+          sudo docker build -t fine-tuned-t5-summarizer .
+
+      - name: Run Container
+        run: |
+          echo "Stopping existing container..."
+          sudo docker stop fine-tuned-t5-summarizer || true
+          sudo docker rm fine-tuned-t5-summarizer || true
+
+          ENV_FILE="/home/ubuntu/Fine-Tuned-T5-Transformer/.env"
+          ENV_FLAG=""
+          if [ -f "$ENV_FILE" ]; then
+            echo "Loading environment variables from $ENV_FILE..."
+            ENV_FLAG="--env-file $ENV_FILE"
+          else
+            echo "Notice: $ENV_FILE not found, starting with defaults..."
+          fi
+
+          echo "Starting container on port 7860..."
+          sudo docker run -d \
+            --name fine-tuned-t5-summarizer \
+            --restart unless-stopped \
+            -p 7860:7860 \
+            $ENV_FLAG \
+            fine-tuned-t5-summarizer
+
+          echo "Container started successfully."
+
+      - name: Free Disk Storage
+        run: |
+          echo "Cleaning Docker cache and images..."
+          sudo docker image prune -f
+          sudo docker builder prune -f
+
+          echo "Cleaning runner workspace..."
+          find . -mindepth 1 -delete
+
+          echo "Deployment complete."
